@@ -98,6 +98,6 @@ por el código de la práctica.
 - Página de detalle de producto
 
 ---
-Integrantes: _completar_ · Link del deploy: _completar_
+Integrantes: Martin Pugliese · Link del deploy: https://mi-tiendadebicis1.vercel.app/
 
 Prof. Julia Panei · UTN Neuquén · Diseño Backend 2026
