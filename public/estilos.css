@@ -3,14 +3,14 @@
    Para adaptarla a tu rubro, alcanza con cambiar estos colores.
    ========================================================= */
 :root {
-  --principal: #14304F;   /* barra superior y titulos */
-  --acento:    #127C7C;   /* botones principales y precios */
-  --destacado: #C97E12;   /* contador del carrito */
+  --principal: #0F2A4A;   /* barra superior y titulos, azul oscuro */
+  --acento:    #1D5CB8;   /* botones principales y precios, azul */
+  --destacado: #A6ADB4;   /* contador del carrito, plateado */
   --fondo:     #F6F8FB;
   --tarjeta:   #FFFFFF;
-  --texto:     #1E293B;
-  --suave:     #64748B;
-  --borde:     #E2E8F0;
+  --texto:     #111111;
+  --suave:     #6B7280;
+  --borde:     #D7D9DC;
   --error:     #B23A48;
   --ok:        #2E7D32;
 }
@@ -24,7 +24,7 @@ body { margin: 0; font-family: system-ui, Arial, sans-serif; background: var(--f
          display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
 .marca { margin: 0; font-size: 22px; }
 .sesion { display: flex; align-items: center; gap: 10px; }
-#saludo { font-size: 14px; color: #CBD8E6; }
+#saludo { font-size: 14px; color: #C9C9C4; }
 
 /* Botones */
 .btn { border: none; border-radius: 6px; padding: 8px 14px; font-size: 14px; cursor: pointer; }
