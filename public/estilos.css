@@ -78,3 +78,22 @@ body { margin: 0; font-family: system-ui, Arial, sans-serif; background: var(--f
 .modal-caja h2 { margin: 0 0 14px; color: var(--principal); }
 .modal-caja input { width: 100%; padding: 9px 10px; margin-bottom: 10px; border: 1px solid var(--borde); border-radius: 6px; font-size: 14px; }
 .cambiar { font-size: 13px; color: var(--suave); text-align: center; margin: 12px 0 0; }
+
+/* ===== EXTRAS ===== */
+
+/* El logo en la barra */
+.marca { display: flex; align-items: center; gap: 10px; }
+
+/* La tarjeta es clickeable: abre el detalle */
+.tarjeta { cursor: pointer; }
+
+/* Ventana de detalle de producto */
+.detalle-caja { width: 420px; }
+.detalle-caja img { width: 100%; height: 240px; object-fit: cover; border-radius: 8px;
+                    background: var(--borde); margin-bottom: 12px; display: block; }
+.detalle-caja .categoria { font-size: 12px; color: var(--suave); text-transform: uppercase; letter-spacing: .5px; }
+.detalle-caja h2 { margin: 4px 0 6px; color: var(--principal); }
+.detalle-caja .descripcion { font-size: 14px; color: var(--suave); margin: 0 0 10px; }
+.detalle-caja .precio { font-size: 20px; font-weight: bold; color: var(--acento); margin: 0; }
+.detalle-caja .stock { font-size: 13px; color: var(--suave); margin: 2px 0 12px; }
+.detalle-caja button:disabled { background: var(--borde); color: var(--suave); cursor: not-allowed; }

@@ -31,4 +31,17 @@ async function obtenerProductos(categoriaId) {
   return data;
 }
 
-module.exports = { obtenerCategorias, obtenerProductos };
+// Un solo producto por su id, o null si no existe (para la pag de detalle)
+async function obtenerProducto(id) {
+  const columnas = 'id, nombre, descripcion, precio, stock, activo,' +
+                   ' imagen_url, categorias(nombre)';
+  const { data, error } = await supabase
+    .from('productos')
+    .select(columnas)
+    .eq('id', id)
+    .maybeSingle();
+  if (error) throw error;
+  return data;
+}
+
+module.exports = { obtenerCategorias, obtenerProductos, obtenerProducto };

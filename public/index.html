@@ -10,11 +10,12 @@
 <body>
 
   <header class="barra">
-    <h1 class="marca">Apex Bicicletas</h1>
+    <h1 class="marca"><img src="logo.svg" alt="Apex" width="34" height="34"> Apex Bicicletas</h1>
     <div class="sesion">
       <span id="saludo"></span>
       <button id="btn-ingresar" class="btn btn-claro" onclick="abrirModal()">Ingresar</button>
       <button id="btn-salir" class="btn btn-claro oculto" onclick="cerrarSesion()">Salir</button>
+      <button id="btn-pedidos" class="btn btn-claro oculto" onclick="verMisPedidos()">Mis pedidos</button>
       <button class="btn btn-carrito" onclick="alternarCarrito()">
         Carrito <span id="contador" class="contador">0</span>
       </button>
@@ -64,6 +65,29 @@
         <button class="btn btn-principal" type="submit">Registrarme</button>
         <p class="cambiar">¿Ya tenés cuenta? <a href="#" onclick="mostrarRegistro(false)">Ingresá</a></p>
       </form>
+    </div>
+  </div>
+
+  <!-- MIS PEDIDOS: panel lateral (usa el mismo estilo que el carrito) -->
+  <aside id="pedidos" class="carrito oculto">
+    <div class="carrito-cabecera">
+      <h2>Mis pedidos</h2>
+      <button class="btn-cerrar" onclick="cerrarPedidos()">×</button>
+    </div>
+    <ul id="pedidos-lista" class="carrito-lista"></ul>
+  </aside>
+
+  <!-- DETALLE DE PRODUCTO: ventana modal -->
+  <div id="detalle" class="modal oculto" onclick="if (event.target === this) cerrarDetalle()">
+    <div class="modal-caja detalle-caja">
+      <button class="btn-cerrar" onclick="cerrarDetalle()">×</button>
+      <img id="detalle-img" src="" alt="">
+      <span id="detalle-categoria" class="categoria"></span>
+      <h2 id="detalle-nombre"></h2>
+      <p id="detalle-descripcion" class="descripcion"></p>
+      <p class="precio" id="detalle-precio"></p>
+      <p class="stock" id="detalle-stock"></p>
+      <button id="detalle-btn" class="btn btn-principal">Agregar al carrito</button>
     </div>
   </div>
 

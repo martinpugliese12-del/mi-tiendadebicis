@@ -63,4 +63,15 @@ async function crearPedido(usuarioId, items) {
   return pedido;
 }
 
-module.exports = { crearPedido };
+// Los pedidos de un usuario con sus items (para la pantalla Mis pedidos)
+async function obtenerPedidos(usuarioId) {
+  const { data, error } = await supabase
+    .from('pedidos')
+    .select('id, total, estado, creado, pedido_items(cantidad, precio_unitario, productos(nombre))')
+    .eq('usuario_id', usuarioId)
+    .order('creado', { ascending: false });
+  if (error) throw error;
+  return data;
+}
+
+module.exports = { crearPedido, obtenerPedidos };

@@ -16,4 +16,14 @@ async function crearPedido(req, res) {
   }
 }
 
-module.exports = { crearPedido };
+// GET /mis-pedidos  (protegida: los pedidos salen del token, como en la compra)
+async function verMisPedidos(req, res) {
+  try {
+    const pedidos = await model.obtenerPedidos(req.usuario.id);
+    res.status(200).json(pedidos);
+  } catch (error) {
+    res.status(500).send('Error al obtener los pedidos');
+  }
+}
+
+module.exports = { crearPedido, verMisPedidos };

@@ -44,7 +44,7 @@ function pintarProductos(lista) {
   lista.forEach(p => {
     const sinStock = p.stock < 1;
     grilla.innerHTML += `
-      <article class="tarjeta">
+      <article class="tarjeta" onclick="abrirDetalle(${p.id})">
         <img src="${p.imagen_url || ''}" alt="${p.nombre}">
         <div class="info">
           <span class="categoria">${p.categorias ? p.categorias.nombre : ''}</span>
@@ -52,7 +52,7 @@ function pintarProductos(lista) {
           <p class="descripcion">${p.descripcion || ''}</p>
           <span class="precio">$${p.precio}</span>
           <span class="stock">${sinStock ? 'Sin stock' : 'Quedan ' + p.stock}</span>
-          <button class="btn btn-principal" onclick="agregar(${p.id})" ${sinStock ? 'disabled' : ''}>
+          <button class="btn btn-principal" onclick="event.stopPropagation(); agregar(${p.id})" ${sinStock ? 'disabled' : ''}>
             Agregar al carrito
           </button>
         </div>
@@ -204,6 +204,7 @@ function actualizarSesion() {
   document.getElementById('saludo').textContent = logueado ? usuarioEmail : '';
   document.getElementById('btn-ingresar').classList.toggle('oculto', logueado);
   document.getElementById('btn-salir').classList.toggle('oculto', !logueado);
+  document.getElementById('btn-pedidos').classList.toggle('oculto', !logueado);
 }
 
 
@@ -245,6 +246,81 @@ async function comprar() {
   } else {
     mostrarMensaje(await res.text(), 'error');
   }
+}
+
+
+// Pide el producto a la API por su id y lo muestra en el modal de detalle.
+// 404: el producto no existe o esta desactivado.
+async function abrirDetalle(id) {
+  const res = await fetch('/productos/' + id);
+  if (!res.ok) return mostrarMensaje(await res.text(), 'error');
+  const p = await res.json();
+
+  document.getElementById('detalle-img').src = p.imagen_url || '';
+  document.getElementById('detalle-categoria').textContent = p.categorias ? p.categorias.nombre : '';
+  document.getElementById('detalle-nombre').textContent = p.nombre;
+  document.getElementById('detalle-descripcion').textContent = p.descripcion || '';
+  document.getElementById('detalle-precio').textContent = '$' + p.precio;
+  document.getElementById('detalle-stock').textContent = p.stock < 1 ? 'Sin stock' : 'Quedan ' + p.stock;
+  document.getElementById('detalle-btn').disabled = p.stock < 1;
+  document.getElementById('detalle-btn').onclick = function() {
+    cerrarDetalle();
+    agregar(p.id);
+  };
+  document.getElementById('detalle').classList.remove('oculto');
+}
+
+function cerrarDetalle() {
+  document.getElementById('detalle').classList.add('oculto');
+}
+
+
+// =========================================================
+// MIS PEDIDOS: lo que compro el usuario que esta de sesion
+// =========================================================
+
+// Pide GET /mis-pedidos con el token y los dibuja en el panel lateral.
+// 401: la sesion no sirve, hay que ingresar de nuevo.
+async function verMisPedidos() {
+  if (!token) {
+    abrirModal();
+    return mostrarMensaje('Ingresá para ver tus pedidos', 'error');
+  }
+  const res = await fetch('/mis-pedidos', {
+    headers: { 'Authorization': 'Bearer ' + token }
+  });
+  if (res.status === 401) {
+    cerrarSesion();
+    abrirModal();
+    return mostrarMensaje('Tu sesión venció. Ingresá de nuevo.', 'error');
+  }
+  if (!res.ok) return mostrarMensaje(await res.text(), 'error');
+  pintarPedidos(await res.json());
+  document.getElementById('pedidos').classList.remove('oculto');
+}
+
+function cerrarPedidos() {
+  document.getElementById('pedidos').classList.add('oculto');
+}
+
+function pintarPedidos(lista) {
+  const ul = document.getElementById('pedidos-lista');
+  ul.innerHTML = '';
+  if (lista.length === 0) {
+    ul.innerHTML = '<li>Todavía no hiciste compras</li>';
+    return;
+  }
+  lista.forEach(pedido => {
+    const items = pedido.pedido_items || [];
+    const detalle = items.map(i =>
+      i.cantidad + ' × ' + (i.productos ? i.productos.nombre : 'Producto ' + i.producto_id)
+    ).join('<br>');
+    ul.innerHTML += `
+      <li>
+        <span>Pedido #${pedido.id}<br><small>${new Date(pedido.creado).toLocaleString()}<br>${detalle}</small></span>
+        <span><strong>$${pedido.total}</strong><br><small>${pedido.estado}</small></span>
+      </li>`;
+  });
 }
 
 

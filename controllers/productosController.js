@@ -22,4 +22,17 @@ async function verProductos(req, res) {
   }
 }
 
-module.exports = { verCategorias, verProductos };
+// GET /productos/:id  (extra: detalle de producto, 404 si no existe)
+async function verProducto(req, res) {
+  const id = Number(req.params.id);
+  if (!Number.isInteger(id) || id < 1) return res.status(404).send('No existe ese producto');
+  try {
+    const producto = await model.obtenerProducto(id);
+    if (!producto || !producto.activo) return res.status(404).send('No existe ese producto');
+    res.status(200).json(producto);
+  } catch (error) {
+    res.status(500).send('Error al obtener el producto');
+  }
+}
+
+module.exports = { verCategorias, verProductos, verProducto };
