@@ -81,9 +81,6 @@ body { margin: 0; font-family: system-ui, Arial, sans-serif; background: var(--f
 
 /* ===== EXTRAS ===== */
 
-/* El logo en la barra */
-.marca { display: flex; align-items: center; gap: 10px; }
-
 /* La tarjeta es clickeable: abre el detalle */
 .tarjeta { cursor: pointer; }
 
