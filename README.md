@@ -83,19 +83,19 @@ por el código de la práctica.
 
 ## Mínimo obligatorio del TP
 
-- [ ] Catálogo con imágenes y filtro por categoría
-- [ ] Carrito
-- [ ] Registro y login
-- [ ] Compra que controla el stock y calcula el total en el backend
-- [ ] Deploy en Vercel funcionando
-- [ ] Este README actualizado con el link del deploy y los integrantes
+- [x] Catálogo con imágenes y filtro por categoría
+- [x] Carrito
+- [x] Registro y login
+- [x] Compra que controla el stock y calcula el total en el backend
+- [x] Deploy en Vercel funcionando
+- [x] Este README actualizado con el link del deploy y los integrantes
 
 ## Extras para mejor nota
 
 - Panel admin con rol (`perfiles.rol = 'admin'`, responde 403 a los clientes)
 - Buscador por nombre
-- "Mis pedidos"
-- Página de detalle de producto
+- [x] "Mis pedidos"
+- [x] Página de detalle de producto
 
 ---
 Integrantes: Martin Pugliese · Link del deploy: https://mi-tiendadebicis1.vercel.app/
