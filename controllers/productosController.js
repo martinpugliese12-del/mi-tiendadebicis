@@ -22,7 +22,7 @@ async function verProductos(req, res) {
   }
 }
 
-// GET /productos/:id  (extra: detalle de producto, 404 si no existe)
+// GET /productos/:id  hicimos el extra del detalle del producto
 async function verProducto(req, res) {
   const id = Number(req.params.id);
   if (!Number.isInteger(id) || id < 1) return res.status(404).send('No existe ese producto');

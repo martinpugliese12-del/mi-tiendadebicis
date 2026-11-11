@@ -16,7 +16,7 @@ async function crearPedido(req, res) {
   }
 }
 
-// GET /mis-pedidos  (protegida: los pedidos salen del token, como en la compra)
+// GET /mis-pedidos los pedidos salen del token, como en la compra
 async function verMisPedidos(req, res) {
   try {
     const pedidos = await model.obtenerPedidos(req.usuario.id);
