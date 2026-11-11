@@ -12,7 +12,7 @@ function errorCliente(mensaje) {
 // busca productos, controla stock, calcula el total, guarda pedido e items
 // y descuenta el stock. items = [ { producto_id, cantidad }, ... ]
 async function crearPedido(usuarioId, items) {
-  // 1. Buscamos todos los productos del carrito en una sola consulta
+  //  Buscamos todos los productos del carrito en una sola consulta
   const ids = items.map(i => i.producto_id);
   const { data: productos, error: e1 } = await supabase
     .from('productos')
@@ -21,7 +21,7 @@ async function crearPedido(usuarioId, items) {
     .eq('activo', true);
   if (e1) throw e1;
 
-  // 2 y 3. Validamos y calculamos el total con precios de la base
+  //   calculamos el total con precios de la base
   let total = 0;
   const filas = [];
   for (const item of items) {
@@ -39,7 +39,7 @@ async function crearPedido(usuarioId, items) {
     });
   }
 
-  // 4. Guardamos el pedido y después sus items
+  // guardamos el pedido 
   const { data: pedido, error: e2 } = await supabase
     .from('pedidos')
     .insert({ usuario_id: usuarioId, total })
@@ -51,7 +51,7 @@ async function crearPedido(usuarioId, items) {
   const { error: e3 } = await supabase.from('pedido_items').insert(conPedido);
   if (e3) throw e3;
 
-  // 5. Descontamos el stock de cada producto
+  //  descuenta el stock de cada producto
   for (const f of filas) {
     const p = productos.find(x => x.id === f.producto_id);
     await supabase
@@ -63,7 +63,7 @@ async function crearPedido(usuarioId, items) {
   return pedido;
 }
 
-// Los pedidos de un usuario con sus items (para la pantalla Mis pedidos)
+// Los pedidos de un usuario con sus items para la pantalla de mis pedidos
 async function obtenerPedidos(usuarioId) {
   const { data, error } = await supabase
     .from('pedidos')

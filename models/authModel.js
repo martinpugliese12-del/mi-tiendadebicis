@@ -18,7 +18,7 @@ async function registrar(email, password, nombre) {
 }
 
 async function iniciarSesion(email, password) {
-  // un cliente descartable: la sesión queda acá y no en el cliente principal
+  // inicio de sesion temporal
   const temporal = createClient(
     process.env.SUPABASE_URL,
     process.env.SUPABASE_KEY,

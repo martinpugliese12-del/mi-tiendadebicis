@@ -23,7 +23,7 @@ async function obtenerProductos(categoriaId) {
     .order('nombre');
 
   if (categoriaId) {
-    consulta = consulta.eq('categoria_id', categoriaId);   // filtro opcional
+    consulta = consulta.eq('categoria_id', categoriaId);   // filtro aunq no es oblig
   }
 
   const { data, error } = await consulta;
@@ -31,7 +31,7 @@ async function obtenerProductos(categoriaId) {
   return data;
 }
 
-// Un solo producto por su id, o null si no existe (para la pag de detalle)
+// Un solo producto por su id si no existe null (para la pag de detalle)
 async function obtenerProducto(id) {
   const columnas = 'id, nombre, descripcion, precio, stock, activo,' +
                    ' imagen_url, categorias(nombre)';

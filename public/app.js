@@ -279,8 +279,8 @@ function cerrarDetalle() {
 // MIS PEDIDOS: lo que compro el usuario que esta de sesion
 // =========================================================
 
-// Pide GET /mis-pedidos con el token y los dibuja en el panel lateral.
-// 401: la sesion no sirve, hay que ingresar de nuevo.
+// pide GET /mis-pedidos con el token y los dibuja en el panel lateral.
+// si 401 hay q iniciar de nuevo la sesion 
 async function verMisPedidos() {
   if (!token) {
     abrirModal();
